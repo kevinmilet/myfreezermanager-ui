@@ -1,4 +1,29 @@
 @import 'src/styles/settings';
 
+a {
+  text-decoration: none;
+}
 
+.card {
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
+}
 
+.form-control {
+  border-radius: 0;
+
+  &:focus {
+    border: 2px solid #1e88e5;
+    box-shadow: none;
+  }
+}
+
+.btn {
+  border: none;
+  border-radius: 2px;
+}
+
+.btn-primary {
+  background-color: #1e88e5;
+}
