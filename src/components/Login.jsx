@@ -22,7 +22,7 @@ const Login = () => {
     return (
         <div>
             <div className="text-center mt-3">
-                <h1>Bievenue sur My Freezer Manager</h1>
+                <h1>Bienvenue sur My Freezer Manager</h1>
             </div>
 
             <div className="card m-auto px-4 col-12 col-sm-10 col-lg-3 mt-5">
