@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Freezer = () => {
+const MyProducts = () => {
     return (
         <div>
-Freezer
+            Mes produits
         </div>
     );
 };
 
-export default Freezer;
+export default MyProducts;
