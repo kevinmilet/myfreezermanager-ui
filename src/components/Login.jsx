@@ -11,7 +11,6 @@ const Login = ({setUserInfos}) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log(userData);
         axios.post('/authenticate', userData).then(response => {
             const bearerToken = response?.headers?.authorization;
             if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {

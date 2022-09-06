@@ -14,8 +14,7 @@ const SignUp = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log(userData);
-        axios.post('/utilisateur', {
+        axios.post('/creer_utilisateur', {
             ...userData
         }).then(response => {
             const bearerToken = response?.headers?.authorization;
