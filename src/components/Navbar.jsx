@@ -1,8 +1,18 @@
 import React from 'react';
 import '../styles/Navbar.scss';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {AUTH_TOKEN_KEY} from "../App";
 
-const Navbar = () => {
+const Navbar = ({userInfos, setUserInfos}) => {
+
+    const history = useNavigate();
+
+    const signOut = () => {
+        sessionStorage.removeItem(AUTH_TOKEN_KEY);
+        setUserInfos(null);
+        history('/login');
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <button className="navbar-toggler" type="button" data-toggle="collapse"
@@ -21,18 +31,12 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <div className="d-flex text-end">
-                   {/* {
-                        userInfos ?*/}
-                            <>
-                                <div>
-                                    Bienvenue, XXX
-                                </div>
-                                <button className="btn btn-secondary btn-sm mx-2" >
-                                    Se déconnecter
-                               </button>
-                           </>
-                            {/*  : null
-                    }*/}
+                    <button className="btn btn-primary btn-sm mx-2">
+                        Mon compte
+                    </button>
+                    <button className="btn btn-secondary btn-sm mx-2" onClick={signOut}>
+                        Se déconnecter
+                    </button>
                 </div>
             </div>
         </nav>

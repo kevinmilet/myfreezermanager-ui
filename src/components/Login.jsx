@@ -1,19 +1,29 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import '../styles/Login.scss';
+import axios from "axios";
+import {AUTH_TOKEN_KEY} from "../App";
 
-const Login = () => {
+const Login = ({setUserInfos}) => {
 
+    const history = useNavigate();
     const [userData, setUserData] = useState({});
 
     const onSubmit = (event) => {
-        // TODO
         event.preventDefault();
         console.log(userData);
+        axios.post('/authenticate', userData).then(response => {
+            const bearerToken = response?.headers?.authorization;
+            if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
+                const jwt = bearerToken.slice(7, bearerToken.length);
+                sessionStorage.setItem(AUTH_TOKEN_KEY, jwt);
+            }
+            setUserInfos(response.data.userName);
+            history('/mes_congelateurs');
+        })
     }
 
     const handleChange = (event) => {
-        // TODO
         let currentState = {...userData};
         currentState[event.target.name] = event.target.value;
         setUserData(currentState);
