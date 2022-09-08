@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
-import {AUTH_TOKEN_KEY} from "../App";
+import {AUTH_TOKEN_KEY} from "../../App";
 
 const SignUp = () => {
     const [userData, setUserData] = useState({});

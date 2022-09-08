@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import '../styles/Login.scss';
+import '../../styles/Login.scss';
 import axios from "axios";
-import {AUTH_TOKEN_KEY} from "../App";
+import {AUTH_TOKEN_KEY} from "../../App";
 
 const Login = ({setUserInfos}) => {
 

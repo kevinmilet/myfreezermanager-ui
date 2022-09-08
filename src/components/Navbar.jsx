@@ -22,15 +22,11 @@ const Navbar = ({userInfos, setUserInfos}) => {
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/mes_congelateurs">Mes Congélateurs</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/mes_produits">Mes Produits</Link>
-                    </li>
-                </ul>
-                <div className="d-flex text-end">
+                <div className="navbar-nav mr-auto me-auto">
+                    <Link className="nav-link" to="/mes_congelateurs">Mes Congélateurs</Link>
+                    <Link className="nav-link" to="/mes_produits">Mes Produits</Link>
+                </div>
+                <div className="navbar-nav d-flex align-items-center">
                     <button className="btn btn-primary btn-sm mx-2">
                         Mon compte
                     </button>

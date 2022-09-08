@@ -1,19 +1,43 @@
-import {Route, Routes} from "react-router-dom";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import Login from "./components/User/Login";
+import SignUp from "./components/User/SignUp";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/global_style.scss';
-import Forgot from "./components/Forgot";
+import Forgot from "./components/User/Forgot";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import MyFreezers from "./components/MyFreezers";
-import EditFreezers from "./components/EditFreezers";
-import MyProducts from "./components/MyProducts";
+import MyFreezers from "./components/Freezer/MyFreezers";
+import MyProducts from "./components/Product/MyProducts";
 import Navbar from "./components/Navbar";
+import {Container} from "react-bootstrap";
+import FreezerDetails from "./components/Freezer/FreezerDetails";
+import EditProduct from "./components/Product/EditProduct";
 
 export const AUTH_TOKEN_KEY = 'jhi-authentificationToken';
+
+const UserConnected = ({userInfos, setUserInfos}) => {
+    const  history = useNavigate();
+    let location = useLocation();
+
+    useEffect(() => {
+        setUserInfos(null);
+        axios.get('/isConnected').then(response => {
+            setUserInfos(response.data);
+        }, () => {
+            if (!location.pathname === '/signup') {
+                history('/login');
+            }
+        })
+    }, [history, location.pathname, setUserInfos]);
+
+    return (
+        <>
+            {userInfos && <Navbar userInfos={userInfos} setUserInfos={setUserInfos} />}
+        </>
+    )
+};
 
 function App() {
 
@@ -35,23 +59,20 @@ function App() {
 
     return (
         <>
-            <div className="App">
-                {
-                    userInfos &&
-                    <Navbar userInfos={userInfos} setUserInfos={setUserInfos}/>
-                }
+            <Container>
+                <UserConnected userInfos={userInfos} setUserInfos={setUserInfos} />
                 <div>
                     <Routes>
                         <Route path='mes_congelateurs' element={<MyFreezers/>}/>
-                        <Route path='congelateur/:freezerId' element={<EditFreezers/>}/>
+                        <Route path='congelateur/:freezerId' element={<FreezerDetails/>}/>
                         <Route path='mes_produits' element={<MyProducts/>}/>
-                        <Route path='produit/:productId' element={<EditFreezers/>}/>
+                        <Route path='produit/:productId' element={<EditProduct/>}/>
                         <Route path='signup' element={<SignUp setUserInfos={setUserInfos}/>}/>
                         <Route path='forgot_password' element={<Forgot/>}/>
                         <Route path='*' element={<Login setUserInfos={setUserInfos}/>}/>
                     </Routes>
                 </div>
-            </div>
+            </Container>
         </>
     );
 }
