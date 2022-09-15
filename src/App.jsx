@@ -6,19 +6,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/global_style.scss';
 import Forgot from "./components/User/Forgot";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import MyFreezers from "./components/Freezer/MyFreezers";
 import MyProducts from "./components/Product/MyProducts";
 import Navbar from "./components/Navbar";
-import {Container} from "react-bootstrap";
+import {Container, Spinner} from "react-bootstrap";
 import FreezerDetails from "./components/Freezer/FreezerDetails";
 import EditProduct from "./components/Product/EditProduct";
+import Loader from "./components/Tools/Loader";
 
 export const AUTH_TOKEN_KEY = 'jhi-authentificationToken';
 
 const UserConnected = ({userInfos, setUserInfos}) => {
-    const  history = useNavigate();
+    const history = useNavigate();
     let location = useLocation();
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const UserConnected = ({userInfos, setUserInfos}) => {
 
     return (
         <>
-            {userInfos && <Navbar userInfos={userInfos} setUserInfos={setUserInfos} />}
+            {userInfos && <Navbar userInfos={userInfos} setUserInfos={setUserInfos}/>}
         </>
     )
 };
@@ -42,6 +43,7 @@ const UserConnected = ({userInfos, setUserInfos}) => {
 function App() {
 
     const [userInfos, setUserInfos] = useState();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         axios.interceptors.request.use(function (request) {
@@ -50,17 +52,36 @@ function App() {
             if (token) {
                 request.headers.Authorization = `Bearer ${token}`;
             }
+            setLoading(true);
             return request;
         }, error => {
+            setLoading(false);
             return Promise.reject(error);
         });
-    }, []);
 
+        axios.interceptors.response.use(function (response) {
+            setLoading(false);
+            return response;
+        }, (error) => {
+            setLoading(false);
+            return Promise.reject(error);
+        });
+    });
 
     return (
         <>
+            <div className="ovale"></div>
+
+            {loading && (
+                <div className="background-spinner">
+                    <div className="spinner">
+                        <Loader/>
+                    </div>
+                </div>
+            )}
+
+            <UserConnected userInfos={userInfos} setUserInfos={setUserInfos}/>
             <Container>
-                <UserConnected userInfos={userInfos} setUserInfos={setUserInfos} />
                 <div>
                     <Routes>
                         <Route path='mes_congelateurs' element={<MyFreezers/>}/>
