@@ -4,7 +4,6 @@ import DataTable from 'react-data-table-component';
 import dayjs from "dayjs";
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import {Spinner} from "react-bootstrap";
 import Loader from "../Tools/Loader";
 require('dayjs/locale/fr')
 
@@ -64,7 +63,6 @@ const ProductTable = () => {
             }
         )
     }, [param.freezerId]);
-
 
     return (
         <>

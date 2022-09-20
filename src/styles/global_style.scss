@@ -14,7 +14,7 @@ a {
   box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
 }
 
-.form-control {
+.form-control, .form-select {
   border-radius: 0;
 
   &:focus {
@@ -62,4 +62,16 @@ a {
 .spinner {
   margin: 15% auto;
   text-align: center;
+}
+
+.error-msg {
+  color: #fc5185;
+  font-style: italic;
+  font-size: 0.8em;
+  margin: 5px 0;
+}
+
+.add-freezer-container {
+  margin-top: 20px;
+  margin-bottom: 15px;
 }

@@ -11,10 +11,11 @@ import axios from "axios";
 import MyFreezers from "./components/Freezer/MyFreezers";
 import MyProducts from "./components/Product/MyProducts";
 import Navbar from "./components/Navbar";
-import {Container, Spinner} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import FreezerDetails from "./components/Freezer/FreezerDetails";
 import EditProduct from "./components/Product/EditProduct";
 import Loader from "./components/Tools/Loader";
+import AddFreezer from "./components/Freezer/AddFreezer";
 
 export const AUTH_TOKEN_KEY = 'jhi-authentificationToken';
 
@@ -27,7 +28,7 @@ const UserConnected = ({userInfos, setUserInfos}) => {
         axios.get('/isConnected').then(response => {
             setUserInfos(response.data);
         }, () => {
-            if (!location.pathname === '/signup') {
+            if (location.pathname !== '/signup') {
                 history('/login');
             }
         })
@@ -86,6 +87,7 @@ function App() {
                     <Routes>
                         <Route path='mes_congelateurs' element={<MyFreezers/>}/>
                         <Route path='congelateur/:freezerId' element={<FreezerDetails/>}/>
+                        <Route path='ajout_congelateur' element={<AddFreezer/>}/>
                         <Route path='mes_produits' element={<MyProducts/>}/>
                         <Route path='produit/:productId' element={<EditProduct/>}/>
                         <Route path='signup' element={<SignUp setUserInfos={setUserInfos}/>}/>
